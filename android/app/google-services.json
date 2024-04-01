@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "153633156502",
+    "project_id": "attraxia-63ff6",
+    "storage_bucket": "attraxia-63ff6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:153633156502:android:9e75e7148df76c654641b7",
+        "android_client_info": {
+          "package_name": "com.example.attraxiachat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCePvhDJpBBBxPxH0Z3b8CB_il_24MPQiw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
