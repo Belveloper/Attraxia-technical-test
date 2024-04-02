@@ -2,13 +2,11 @@ import 'package:attraxiachat/controllers/chat/chat_cubit.dart';
 import 'package:attraxiachat/controllers/chat/chat_state.dart';
 import 'package:attraxiachat/models/message.dart';
 import 'package:attraxiachat/utils/helpers.dart';
-import 'package:chat_bubbles/bubbles/bubble_normal.dart';
 import 'package:chat_bubbles/bubbles/bubble_special_one.dart';
-import 'package:chat_bubbles/bubbles/bubble_special_three.dart';
-import 'package:chat_bubbles/bubbles/bubble_special_two.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ChatView extends StatelessWidget {
@@ -52,21 +50,22 @@ class ChatView extends StatelessWidget {
               padding:
                   const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  StreamBuilder<QuerySnapshot>(
-                    stream: cubit.getMessagesStream(chatId: chatID!),
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: Text(
-                            "chat with ${senderID != "first" ? "first user" : "second user"}",
-                          ),
-                        );
-                      }
-                      List<QueryDocumentSnapshot<Object?>> messages =
-                          snapshot.data!.docs.toList();
-                      return Expanded(
-                        child: messages.isEmpty
+                  Expanded(
+                    child: StreamBuilder<QuerySnapshot>(
+                      stream: cubit.getMessagesStream(chatId: chatID!),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: Text(
+                              "chat with ${senderID != "first" ? "first user" : "second user"}",
+                            ),
+                          );
+                        }
+                        List<QueryDocumentSnapshot<Object?>> messages =
+                            snapshot.data!.docs.toList();
+                        return messages.isEmpty
                             ? Center(
                                 child: Text(
                                   "chat with ${senderID != "first" ? "first user" : "second user"}",
@@ -75,9 +74,9 @@ class ChatView extends StatelessWidget {
                             : ListView.separated(
                                 reverse: true,
                                 itemCount: messages.length,
-                                separatorBuilder: (cx, _) =>
+                                separatorBuilder: (context, _) =>
                                     const SizedBox(height: 15.0),
-                                itemBuilder: (cx, index) {
+                                itemBuilder: (context, index) {
                                   Message message = Message.fromJson(
                                     json: messages[index].data()
                                         as Map<String, dynamic>,
@@ -98,9 +97,9 @@ class ChatView extends StatelessWidget {
                                   return ownMessageBubble(
                                       message.content, message.isRead ?? false);
                                 },
-                              ),
-                      );
-                    },
+                              );
+                      },
+                    ),
                   ),
                   const SizedBox(height: 10),
                   StatefulBuilder(
@@ -124,9 +123,6 @@ class ChatView extends StatelessWidget {
                                 return;
                               }
                               textDirection = detectTextDirection(value[0]);
-                              if (oldTextDirection != textDirection) {
-                                set(() {});
-                              }
                             },
                             decoration: InputDecoration(
                               enabledBorder: InputBorder.none,
@@ -136,7 +132,7 @@ class ChatView extends StatelessWidget {
                                 vertical: 8,
                               ),
                               border: InputBorder.none,
-                              hintText: "Message",
+                              hintText: "send message ...",
                               suffixIcon: MaterialButton(
                                 minWidth: 1.0,
                                 child: const Icon(
@@ -144,8 +140,7 @@ class ChatView extends StatelessWidget {
                                   size: 35,
                                 ),
                                 onPressed: () async {
-                                  messageController.text =
-                                      removeLeadingWhitespace(
+                                  messageController.text = removeLeadingBlanks(
                                     messageController.text,
                                   );
                                   if (messageController.text.isNotEmpty) {
@@ -162,8 +157,6 @@ class ChatView extends StatelessWidget {
                                       chatId: chatID,
                                     );
                                   }
-
-                                  //messageController.clear();
                                 },
                               ),
                             ),
@@ -190,7 +183,7 @@ class ChatView extends StatelessWidget {
           fontWeight: FontWeight.w400,
           fontSize: 18,
         ),
-        color: Colors.black,
+        color: const Color(0xff1877F2),
         seen: isRead,
       );
 
@@ -201,7 +194,7 @@ class ChatView extends StatelessWidget {
           fontWeight: FontWeight.w400,
           fontSize: 18,
         ),
-        color: Colors.blueGrey,
+        color: Colors.grey.shade400,
         isSender: false,
       );
 }

@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-//necessary to initialize firebase with flutter 3.19 
+//necessary to initialize firebase with flutter 3.19
   await Firebase.initializeApp(
       options: const FirebaseOptions(
     apiKey: 'key',
@@ -34,8 +34,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Attraxia chat app',
           theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.green.shade900),
-            useMaterial3: true,
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue.shade900),
           ),
           home: const HomeView()),
     );

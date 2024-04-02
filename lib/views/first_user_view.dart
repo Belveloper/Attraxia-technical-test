@@ -39,7 +39,7 @@ class FirstUserView extends StatelessWidget {
                     : ListView.separated(
                         itemCount: chats.length,
                         separatorBuilder: (context, _) =>
-                            const SizedBox(height: 10.0),
+                            const SizedBox(height: 5.0),
                         itemBuilder: (context, index) {
                           final Message lastMessage = Message.fromJson(
                             json: chats[index].data() as Map<String, dynamic>,
@@ -60,7 +60,8 @@ class FirstUserView extends StatelessWidget {
                                 chatId: chats[index].id,
                               ),
                               builder: (context, snapshot) {
-                                if (!snapshot.hasData) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
                                   return const Center(
                                     child: CircularProgressIndicator(),
                                   );

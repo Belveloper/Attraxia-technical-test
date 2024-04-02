@@ -26,7 +26,7 @@ Widget ConversationTileWidget({
           children: [
             const CircleAvatar(
               radius: 22,
-              backgroundColor: Colors.green,
+              backgroundColor: Color.fromARGB(255, 7, 51, 107),
               child: Icon(
                 Icons.person,
                 color: Colors.white,
