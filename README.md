@@ -1,6 +1,7 @@
 # attraxiachat
 
-A new Flutter project.
+You will find the apks in the release section (V1.0)
+i included 2 apk versions one for pixel phones (v8a) and the regular (v7a) for other android phones
 
 ## Getting Started
 
